@@ -30,6 +30,7 @@ np.shape(my_array)
 
 # Reading errors!
 # MY_array # Ask why?
+# case sensitive!
 
 # Python indexing
 # Welcome to 0 indexing!
@@ -37,8 +38,8 @@ np.shape(my_array)
 my_array[0]
 my_array[1]
 my_array[-1]
-my_array[0:1]
-my_array[0:2]
+my_array[0:1] #this only gives you the start element:size of one
+my_array[0:2] #this gives you the first two elements in the first dim
 my_array[-1:]
 
 # Printing multiple lines
@@ -67,8 +68,9 @@ print(truly_copied)
 print(my_array)
 
 # Pandas data frames
+#first, we create a python dic first
 all_data = {"my_array": my_array, "copied_array": copied_array,
             "truly_copied": truly_copied}
 my_data = pd.DataFrame(all_data)
 print(my_data)
-
+my_data

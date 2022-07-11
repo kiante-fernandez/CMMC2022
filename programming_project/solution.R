@@ -22,7 +22,7 @@ get_uni_mean <- function(){}
 ### Define essential simulation functions
 Generate <- function(condition, fixed_objects = NULL) {
   Attach(condition)
-
+  
   if (groups_equal) {
     N1 <- N2 <- sample_size
     sd1 <- sd2 <- sig_squared
@@ -33,9 +33,9 @@ Generate <- function(condition, fixed_objects = NULL) {
     sd2 <- ifelse(sd1 > 1, sig_squared - 3, sig_squared + 3)
   }
   dv <- switch(distribution,
-    GAUSS = c(rnorm(N1, sd = sqrt(sd1)), rnorm(N2, sd = sqrt(sd2))),
-    EXP = c(rexp(N1, rate = 1/sqrt(sd1) ), rexp(N2, rate = 1/ sqrt(sd2) )), # need correct values
-    UNI = c(runif(N1, min = 0, max = 1), runif(N2, min = 0, max = 1)) # need correct values
+               GAUSS = c(rnorm(N1, sd = sqrt(sd1)), rnorm(N2, sd = sqrt(sd2))),
+               EXP = c(rexp(N1, rate = 1/sqrt(sd1) ), rexp(N2, rate = 1/ sqrt(sd2) )), # need correct values
+               UNI = c(runif(N1, min = 0, max = 1), runif(N2, min = 0, max = 1)) # need correct values
   )
   dat <- data.frame(
     DV = dv,
@@ -50,11 +50,11 @@ Analyse <- function(condition, dat, fixed_objects = NULL) {
   equal_variances <- TRUE
   # Run statistical analyses of interest ...
   test <- t.test(dat$DV[dat$group == "G1"], dat$DV[dat$group == "G2"],
-    var.equal = equal_variances
+                 var.equal = equal_variances
   )
-
+  
   estimate_diff <- test$estimate[[1]] - test$estimate[[2]]
-
+  
   p_value <- test$p.value[[1]]
   # Return a named vector or list
   ret <- c(estimate_diff = estimate_diff[[1]], p_value = p_value[[1]])
@@ -120,6 +120,6 @@ Design <- createDesign(sample_size = list(c(5, 15),
                                           c(5,5),
                                           c(15,15)),
                        standard_deviations = list(c(1,4),
-                                          c(1,1),
-                                          c(4,4)),
+                                                  c(1,1),
+                                                  c(4,4)),
                        dist = c("GAUSS", "EXP", "UNI"))
